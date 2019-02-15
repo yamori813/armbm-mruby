@@ -5,6 +5,7 @@ SECTIONS
  .startup . : { startup.o(.text) }
  .text : { *(.text) }
  .data : { *(.data) }
+ __bss_start = .;
  .bss : { *(.bss COMMON) }
  end = .;
  . = ALIGN(8);
