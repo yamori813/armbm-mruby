@@ -1,7 +1,7 @@
-ENTRY(_Reset)
+ENTRY(_Start);
 SECTIONS
 {
- . = 0x100000; /*initial address*/
+ . = 0x10000; /*initial address*/
  .startup . : { startup.o(.text) }
  .text : { *(.text) }
  .data : { *(.data) }
