@@ -151,3 +151,17 @@ invalidate_tlbs:
 	mcr p15,0,r2,c8,c7,0  ;@ invalidate tlb
 	mcr p15,0,r2,c7,c10,4 ;@ DSB ??
 	bx lr
+
+.globl enableInterrupt
+enableInterrupt:
+	mrs	r0, cpsr
+	bic	r1, r0, #0xC0
+	msr	cpsr_c, r1
+	mov	pc, lr
+
+.globl disableInterrupt
+disableInterrupt:
+	mrs	r0, cpsr
+	orr	r1, r0, #0xC0
+	msr	cpsr_c, r1
+	mov	pc, lr

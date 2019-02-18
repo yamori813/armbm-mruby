@@ -88,7 +88,10 @@ struct ethernetif *ethernetif;
 
 	eth_reset();
 
-//	irq_enable(KS8695_INT_LAN_RX_STATUS);
+	ks8695_write(KS8695_SWITCH_LPPM12, 0x0);
+	ks8695_write(KS8695_SWITCH_LPPM34, 0x0);
+
+	irq_enable(KS8695_INT_LAN_RX_STATUS);
 
 	inquestart = 0;
 	inqueend = 0;

@@ -73,7 +73,7 @@ unsigned int ra;
 
 	for(ra=0;;ra+=0x00100000)
 	{
-		if (ra < 0x800000)   /* SDRAM */
+		if (ra < 0x700000)   /* SDRAM. Last section use MAC DMA */
 			mmu_section(ra,ra,0x0000 | BUFFERABLE | CACHEABLE);
 		else
 			mmu_section(ra,ra,0x0000);
@@ -119,10 +119,12 @@ unsigned int ra;
 
 cli()
 {
+	disableInterrupt();
 }
 
 sti()
 {
+	enableInterrupt();
 }
 
 int getarch()

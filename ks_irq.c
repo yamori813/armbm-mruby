@@ -28,9 +28,12 @@ void irqch(void)
 {
 unsigned long *lptr;
 unsigned long status;
+unsigned long mask;
 
+	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_INT_ENABLE);
+	mask = *lptr;
 	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_INT_STATUS);
-	status = *lptr;
+	status = *lptr & mask;
 
 	if (status & (1 << KS8695_INT_LAN_RX_STATUS)) {
 		eth_rx();

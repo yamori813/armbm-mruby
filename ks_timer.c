@@ -24,8 +24,14 @@ int timer_intr()
 		net_poll();
 }
 
-udelay()
+udelay(int usec)
 {
+int start;
+
+	start = jiffies;
+
+	while (jiffies != start)
+		;
 }
 
 sys_now()
@@ -33,8 +39,14 @@ sys_now()
 	return jiffies;
 }
 
-delay_ms()
+delay_ms(int msec)
 {
+int start;
+
+	start = jiffies;
+
+	while (jiffies > start + msec)
+		;
 }
 
 reset_counter()

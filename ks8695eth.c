@@ -64,9 +64,14 @@ struct ks8695_rxdesc {
 #define	RXDESCS		8
 #define	BUFSIZE		2048
 
+/*
 volatile struct ks8695_txdesc ks8695_tx[TXDESCS] __attribute__((aligned(256)));
 volatile struct ks8695_rxdesc ks8695_rx[RXDESCS] __attribute__((aligned(256)));
 volatile uint8_t ks8695_bufs[BUFSIZE*(TXDESCS+RXDESCS)] __attribute__((aligned(2048)));;
+*/
+struct ks8695_txdesc *ks8695_tx;
+struct ks8695_rxdesc *ks8695_rx;
+uint8_t *ks8695_bufs;
 
 static int lanrx_index, lantx_index;
 static int use_wan,save_use_wan, cmd_forced_use=0;
@@ -141,8 +146,12 @@ void eth_reset()
 	int nTimeOut = 1000;
 	unsigned int uReg;
 
-	ks8695_write(KS8695_SWITCH_LPPM12, 0x0);
-	ks8695_write(KS8695_SWITCH_LPPM34, 0x0);
+//	ks8695_write(KS8695_SWITCH_LPPM12, 0x0);
+//	ks8695_write(KS8695_SWITCH_LPPM34, 0x0);
+
+	ks8695_tx = (struct ks8695_txdesc *) 0x700000;
+	ks8695_rx = (struct ks8695_rxdesc *) 0x740000;
+	ks8695_bufs = (uint8_t *) 0x780000;
 
 //	debug ("%s(%d): eth_reset()\n", __FILE__, __LINE__);
 
