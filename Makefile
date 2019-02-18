@@ -32,7 +32,9 @@ OBJS = main.o ks_irq.o ks_timer.o ks_gpio.o startup.o xprintf.o ks_ether.o ks869
 RBSCRIPT = samples/hello.rb
 
 main.bin.gz.uboot: $(OBJS)
-	$(CROSS_LD) -T main.ld -Map=main.map $(OBJS) -o main.elf $(CROSS_LIBS)
+	./ver.sh
+	$(CROSS_CC) $(CROSS_CFLAGS) -c ver.c
+	$(CROSS_LD) -T main.ld -Map=main.map $(OBJS) ver.o -o main.elf $(CROSS_LIBS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
 	gzip -f main.bin
 	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on Yet Another Bare Metal' -d main.bin.gz -a 0x00010000 -e 0x00010000 main.bin.gz.uboot

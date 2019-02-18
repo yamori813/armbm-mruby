@@ -9,7 +9,29 @@
 
 #include "platform.h"
 
+extern char version[];
+
 extern IRQ_STACK_START;
+
+#define MMUTABLEBASE 0x00004000
+
+#define CACHEABLE 0x08
+#define BUFFERABLE 0x04
+
+//-------------------------------------------------------------------
+unsigned int mmu_section ( unsigned int vadd, unsigned int padd, unsigned int flags )
+{
+    unsigned int ra;
+    unsigned int rb;
+    unsigned int rc;
+
+    ra=vadd>>20;
+    rb=MMUTABLEBASE|(ra<<2);
+    rc=(padd&0xFFF00000)|0xC00|flags|2;
+    //hexstrings(rb); hexstring(rc);
+    PUT32(rb,rc);
+    return(0);
+}
 
 void pchar(unsigned char c)
 {
@@ -41,12 +63,26 @@ unsigned char *mrbp;
 int mrbsize;
 unsigned char *mrbbuf;
 int bootsize;
+unsigned int ra;
 
 	xfunc_out=pchar;
 
 	IRQ_STACK_START = 0x10000;
 
-//	print(version);
+	print(version);
+
+	for(ra=0;;ra+=0x00100000)
+	{
+		if (ra < 0x800000)   /* SDRAM */
+			mmu_section(ra,ra,0x0000 | BUFFERABLE | CACHEABLE);
+		else
+			mmu_section(ra,ra,0x0000);
+		if(ra==0xFFF00000) break;
+	}
+
+	start_mmu(MMUTABLEBASE,0x00000001|0x1000|0x0004);
+
+	start_l1cache();
 
 	irq_init();
 
