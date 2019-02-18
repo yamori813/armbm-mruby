@@ -4,18 +4,11 @@
 
 #include "platform.h"
 
-#define	CHIPC_GPIOIN	0xb8000060
-#define	CHIPC_GPIOOUT	0xb8000064
-#define	CHIPC_GPIOOUTEN	0xb8000068
-#define	CHIPC_GPIOCTRL	0xb800006c
-#define	CHIPC_GPIOPOL	0xb8000070
-#define	CHIPC_GPIOINTM	0xb8000074
-
 unsigned long gpio_getctl()
 {
 unsigned long *lptr;
 
-	lptr = (unsigned long *)CHIPC_GPIOCTRL;
+	lptr = (unsigned long *)(KS8695_IO_BASE + KS8695_GPIO_CTRL);
 
 	return *lptr;
 }
@@ -24,7 +17,7 @@ void gpio_setctl(unsigned long val)
 {
 unsigned long *lptr;
 
-	lptr = (unsigned long *)CHIPC_GPIOCTRL;
+	lptr = (unsigned long *)(KS8695_IO_BASE + KS8695_GPIO_CTRL);
 
 	*lptr = val;
 }
@@ -33,7 +26,7 @@ unsigned long gpio_getdir()
 {
 unsigned long *lptr;
 
-	lptr = (unsigned long *)CHIPC_GPIOOUTEN;
+	lptr = (unsigned long *)(KS8695_IO_BASE + KS8695_GPIO_MODE);
 
 	return *lptr;
 }
@@ -42,7 +35,7 @@ void gpio_setdir(unsigned long val)
 {
 unsigned long *lptr;
 
-	lptr = (unsigned long *)CHIPC_GPIOOUTEN;
+	lptr = (unsigned long *)(KS8695_IO_BASE + KS8695_GPIO_MODE);
 
 	*lptr = val;
 }
@@ -51,7 +44,7 @@ unsigned long gpio_getdat()
 {
 unsigned long *lptr;
 
-	lptr = (unsigned long *)CHIPC_GPIOIN;
+	lptr = (unsigned long *)(KS8695_IO_BASE + KS8695_GPIO_DATA);
 
 	return *lptr;
 }
@@ -60,7 +53,7 @@ void gpio_setdat(unsigned long val)
 {
 unsigned long *lptr;
 
-	lptr = (unsigned long *)CHIPC_GPIOOUT;
+	lptr = (unsigned long *)(KS8695_IO_BASE + KS8695_GPIO_DATA);
 
 	*lptr = val;
 }
