@@ -127,7 +127,9 @@ sti()
 	enableInterrupt();
 }
 
+#define	MODULE_KS8695			9
+
 int getarch()
 {
-	return 0;
+	return MODULE_KS8695;
 }
