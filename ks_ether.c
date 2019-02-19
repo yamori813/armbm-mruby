@@ -86,12 +86,12 @@ struct ethernetif *ethernetif;
 	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP |
 	    NETIF_FLAG_LINK_UP;
 
+	irq_enable(KS8695_INT_LAN_RX_STATUS);
+
 	eth_reset();
 
 	ks8695_write(KS8695_SWITCH_LPPM12, 0x0);
 	ks8695_write(KS8695_SWITCH_LPPM34, 0x0);
-
-	irq_enable(KS8695_INT_LAN_RX_STATUS);
 
 	inquestart = 0;
 	inqueend = 0;

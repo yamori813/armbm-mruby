@@ -37,7 +37,8 @@ unsigned long mask;
 
 	if (status & (1 << KS8695_INT_LAN_RX_STATUS)) {
 		eth_rx();
-	} else {
+	}
+	if (status & (1 << KS8695_INT_TIMERINT1)) {
 		timer_intr();
 	}
 
