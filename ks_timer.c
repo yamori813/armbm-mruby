@@ -45,7 +45,7 @@ int start;
 
 	start = jiffies;
 
-	while (jiffies > start + msec)
+	while (jiffies < start + msec)
 		;
 }
 
