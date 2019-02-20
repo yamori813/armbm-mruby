@@ -74,13 +74,6 @@ print(char *ptr)
 #define FLASH_ADDR	0x02000000
 #define BOOT_SIZE	0x30000
 
-void mt19937ar_init()
-{
-
-	unsigned long init[4]={0x123, 0x234, 0x345, 0x456}, length=4;
-	init_by_array(init, length);
-}
- 
 int main(void)
 {
 unsigned char *sizep;
