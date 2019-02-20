@@ -90,8 +90,10 @@ struct ethernetif *ethernetif;
 
 	eth_reset();
 
-	ks8695_write(KS8695_SWITCH_LPPM12, 0x0);
-	ks8695_write(KS8695_SWITCH_LPPM34, 0x0);
+	/* back to default value */
+	ks8695_write(KS8695_SWITCH_LPPM12, 0x00800080);
+	delay_ms(10);
+	ks8695_write(KS8695_SWITCH_LPPM34, 0x00800080);
 
 	inquestart = 0;
 	inqueend = 0;

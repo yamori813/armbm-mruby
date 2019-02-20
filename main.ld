@@ -7,5 +7,5 @@ SECTIONS
  .data : { *(.data) }
  __bss_start = .;
  .bss : { *(.bss COMMON) }
- end = .;
+ _end = .;
 }

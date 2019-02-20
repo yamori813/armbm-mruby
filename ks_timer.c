@@ -36,7 +36,15 @@ int start;
 
 sys_now()
 {
+
 	return jiffies;
+}
+
+unsigned long long
+time(unsigned long *t)
+{
+
+	return sys_now()/1000 + starttime;
 }
 
 delay_ms(int msec)
@@ -51,6 +59,7 @@ int start;
 
 reset_counter()
 {
+
 	 jiffies = 0;
 }
 

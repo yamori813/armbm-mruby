@@ -27,7 +27,7 @@ _bss_start:
 
 .globl _bss_end
 _bss_end:
-	.word end
+	.word _end
 
 .globl IRQ_STACK_START
 IRQ_STACK_START:
