@@ -61,9 +61,43 @@ err_t err;
 	}
 }
 
+int findenv(char *name, char *buf, char *res, int size)
+{
+char *ptr;
+int len;
+int i = 0;
+char key[128];
+
+	ptr = buf + 4;
+
+	while(1) {
+		for (i = 0; *(ptr + i) != '=' && i < sizeof(key) - 1; ++i)
+			key[i] = *(ptr + i);
+		key[i] = '\0';
+		ptr += i + 1;
+		if (strcmp(key, name) == 0) {
+			if (strlen(ptr) < size) {
+				strcpy(res, ptr);
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+		for (; *ptr != '\0'; ++ptr) ;
+		++ptr;
+		if (*ptr == '\0') {
+			res = '\0';
+			return 0;
+		}
+	}
+}
+
 ethernetif_init(struct netif *netif)
 {
 struct ethernetif *ethernetif;
+char *envp;
+char macstr[32];
+char *macptr;
 
 	ethernetif = mem_malloc(sizeof(struct ethernetif));
 	if (ethernetif == NULL) {
@@ -75,13 +109,20 @@ struct ethernetif *ethernetif;
 	netif->name[0] = 'k';
 	netif->name[1] = 'e';
 
-	memcpy( eth_mac, default_eth_mac, 6 );
-	memcpy( netif->hwaddr, default_eth_mac, 6 );
-
 	netif->output = etharp_output;
 	netif->linkoutput = low_level_output;
 
+	envp = 0x02000000 + 0x30000;
+	if (findenv("ethaddr", envp, macstr, sizeof(macstr))) {
+		macptr = macstr;
+	} else {
+		macptr = "12:34:56:78:9a:bc";
+	}
+	xprintf("%s\n", macptr);
+
 	netif->hwaddr_len = ETHARP_HWADDR_LEN;
+	enet_parse_hwaddr(macptr,  netif->hwaddr);
+
 	netif->mtu = 1500;
 	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP |
 	    NETIF_FLAG_LINK_UP;
