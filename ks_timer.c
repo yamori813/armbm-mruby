@@ -4,6 +4,8 @@
 
 #include "platform.h"
 
+#include "time.h"
+
 unsigned long starttime;
 static volatile unsigned int jiffies = 0;
 
@@ -40,8 +42,8 @@ sys_now()
 	return jiffies;
 }
 
-unsigned long long
-time(unsigned long *t)
+time_t
+time(time_t *t)
 {
 
 	return sys_now()/1000 + starttime;
