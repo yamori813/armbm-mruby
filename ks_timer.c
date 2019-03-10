@@ -9,6 +9,46 @@
 unsigned long starttime;
 static volatile unsigned int jiffies = 0;
 
+void watchdog_start(int sec)
+{
+unsigned long *lptr;
+unsigned long reg;
+
+	/* timer1 is 1msec */
+	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_TIMER1);
+	reg = *lptr;
+	reg = (reg * 1000 * sec) | 0xff;
+	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_TIMER0);
+	*lptr = reg;
+
+	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_TIMER_CTRL);
+	reg = *lptr;
+	*lptr = reg | 0x01;
+}
+
+void watchdog_reset()
+{
+unsigned long *lptr;
+unsigned long reg;
+
+	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_TIMER_CTRL);
+	reg = *lptr;
+	reg = reg & ~0x01;
+	*lptr = reg;
+	*lptr = reg | 0x01;
+}
+
+void watchdog_stop()
+{
+unsigned long *lptr;
+unsigned long reg;
+
+	lptr = (unsigned long *)(KS8695_IO_BASE+KS8695_TIMER_CTRL);
+	reg = *lptr;
+	reg = reg & ~0x01;
+	*lptr = reg;
+}
+
 int timer_init()
 {
 unsigned long *lptr;
