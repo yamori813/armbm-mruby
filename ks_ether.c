@@ -121,7 +121,8 @@ char *macptr;
 	xprintf("%s\n", macptr);
 
 	netif->hwaddr_len = ETHARP_HWADDR_LEN;
-	enet_parse_hwaddr(macptr,  netif->hwaddr);
+	enet_parse_hwaddr(macptr, netif->hwaddr);
+	memcpy(eth_mac, netif->hwaddr, netif->hwaddr_len);
 
 	netif->mtu = 1500;
 	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP |
