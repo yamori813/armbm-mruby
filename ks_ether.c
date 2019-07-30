@@ -13,6 +13,8 @@
 #include "lwip/etharp.h"
 #include "netif/ethernet.h"
 
+#define UBOOTENVOFFSET	0x20000
+
 struct netif netif;
 
 struct ethernetif {
@@ -112,7 +114,7 @@ char *macptr;
 	netif->output = etharp_output;
 	netif->linkoutput = low_level_output;
 
-	envp = 0x02000000 + 0x30000;
+	envp = 0x02000000 + UBOOTENVOFFSET;
 	if (findenv("ethaddr", envp, macstr, sizeof(macstr))) {
 		macptr = macstr;
 	} else {
