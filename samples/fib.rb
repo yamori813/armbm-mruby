@@ -1,7 +1,7 @@
 #
 # mruby on YABM script
 #
-# Fibonacci number script use by netconsole
+# Fibonacci number benchmark script use by netconsole
 
 def fib n
   return n if n < 2
@@ -23,14 +23,16 @@ dist = "10.10.10.3"
 
 yabm.udpinit
 
+count = 1
 while 1 do
-   yabm.print "."
-   yabm.udpsend(dist, 6666, ".", 1)
-   start = yabm.count() 
-   fib(32)
-   time = (yabm.count() - start) / 1000
-   res = "fib(32): " + time.to_s + "sec\n"
-   yabm.udpsend(dist, 6666, res, res.length)
+  res = count.to_s + "."
+  count = count + 1
+  yabm.udpsend(dist, 6666, res, res.length)
+  start = yabm.count()
+  fib(32)
+  time = (yabm.count() - start) / 1000
+  res = "fib(32): " + time.to_s + "sec\n"
+  yabm.udpsend(dist, 6666, res, res.length)
 end
 
 rescue => e
