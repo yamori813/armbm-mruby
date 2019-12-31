@@ -27,7 +27,7 @@ CROSS_CFLAGS += -I$(BARESSLDIR)/inc
 CROSS_CFLAGS += -mcpu=arm922t
 CROSS_CFLAGS += -Imruby/include
 
-OBJS = main.o ks_irq.o ks_timer.o ks_gpio.o startup.o xprintf.o ks_ether.o ks8695eth.o mt19937ar.o net.o bear.o syscalls.o net_ether.o
+OBJS = main.o ks_irq.o ks_timer.o ks_gpio.o startup.o xprintf.o ks_ether.o ks8695eth.o mt19937ar.o net.o bear.o syscalls.o net_ether.o i2c.o
 
 RBSCRIPT = samples/hello.rb
 
