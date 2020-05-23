@@ -28,8 +28,8 @@ yabm.gpiosetdat(1 << LED)
 yabm.netstartdhcp
 
 # sync date by ntp use https X.509
-ntpaddr = rtl.lookup("ntp.nict.jp")
-rtl.sntp(ntpaddr)
+ntpaddr = yabm.lookup("ntp.nict.jp")
+yabm.sntp(ntpaddr)
 
 ip = yabm.getaddress
 
