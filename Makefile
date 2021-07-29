@@ -13,17 +13,17 @@ CROSS_AS = $(PREFIX)-as
 CROSS_LD = $(PREFIX)-ld
 CROSS_OBJCOPY = $(PREFIX)-objcopy
 
-CROSS_LIBS = -L./$(NEWLIBDIR)/$(PREFIX)/newlib
+CROSS_LIBS = -Lbuild/work/$(NEWLIBDIR)/$(PREFIX)/newlib
 CROSS_LIBS += -Lmruby/build/kendin/lib
 CROSS_LIBS += -L/usr/local/lib/gcc/arm-none-eabi/4.9.2/
-CROSS_LIBS += -L$(LWIPDIR)/kendin
-CROSS_LIBS += -L./$(BARESSLDIR)/build/
+CROSS_LIBS += -Lbuild/work/$(LWIPDIR)/kendin
+CROSS_LIBS += -Lbuild/work/$(BARESSLDIR)/build/
 CROSS_LIBS += -lmruby -llwip -lbearssl
 CROSS_LIBS += -lc -lgcc
 
-CROSS_CFLAGS = -I./$(NEWLIBDIR)/newlib/libc/include/
-CROSS_CFLAGS += -I./$(LWIPDIR)/src/include -I./$(LWIPDIR)/kendin/include
-CROSS_CFLAGS += -I$(BARESSLDIR)/inc
+CROSS_CFLAGS = -Ibuild/work/$(NEWLIBDIR)/newlib/libc/include/
+CROSS_CFLAGS += -Ibuild/work/$(LWIPDIR)/src/include -Ibuild/work/$(LWIPDIR)/kendin/include
+CROSS_CFLAGS += -Ibuild/work/$(BARESSLDIR)/inc
 CROSS_CFLAGS += -mcpu=arm922t
 CROSS_CFLAGS += -Imruby/include
 
@@ -40,7 +40,7 @@ main.bin.gz.uboot: $(OBJS)
 	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on Yet Another Bare Metal' -d main.bin.gz -a 0x00010000 -e 0x00010000 main.bin.gz.uboot
 
 image :
-	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
+	./mruby/build/host/mrbc/bin/mrbc -ohoge.mrb $(RBSCRIPT)
 	cat main.bin.gz.uboot hoge.mrb > main.uimg 
 
 

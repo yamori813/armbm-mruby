@@ -1,0 +1,11 @@
+*.o
+build/work/*
+build/mruby/build_config.rb.lock
+ver.c
+main.elf
+main.map
+main.bin.*
+main.uimg
+cfe/libcfe.a
+hoge.mrb
+tools/asustrx
