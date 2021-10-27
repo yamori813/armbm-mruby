@@ -37,7 +37,7 @@ main.bin.gz.uboot: $(OBJS)
 	$(CROSS_LD) -T main.ld -Map=main.map $(OBJS) ver.o -o main.elf $(CROSS_LIBS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
 	gzip -f main.bin
-	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on Yet Another Bare Metal' -d main.bin.gz -a 0x00010000 -e 0x00010000 main.bin.gz.uboot
+	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on YABM' -d main.bin.gz -a 0x00010000 -e 0x00010000 main.bin.gz.uboot
 
 image :
 	./mruby/build/host/mrbc/bin/mrbc -ohoge.mrb $(RBSCRIPT)
