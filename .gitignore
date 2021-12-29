@@ -1,5 +1,5 @@
 *.o
-build/work/*
+#build/work/*
 build/mruby/build_config.rb.lock
 ver.c
 main.elf
