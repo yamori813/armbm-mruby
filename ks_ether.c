@@ -33,7 +33,7 @@ low_level_output(struct netif *netif, struct pbuf *p)
 extern unsigned char default_eth_mac[];
 extern unsigned char eth_mac[];
 
-#define INQEULEN 16
+#define INQEULEN 32
  
 struct pbuf *inque[INQEULEN];
 int inquestart;
