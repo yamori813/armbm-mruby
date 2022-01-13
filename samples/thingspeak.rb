@@ -1,55 +1,52 @@
 #
-# mruby on YABM script
+# mruby on yabm script
+# need compile with subroutine file
 #
-# thingspeak channel update 
 #
 
 APIKEY = "naisyo"
-INTERVAL = 20
 
-def delay(yabm, val) 
-  start = yabm.count() 
-  while yabm.count() < start + val do
-  end
-end
+WDTIMEOUT = 300
+
+#
+# main
+#
 
 begin
 
-# ip address setting
-
-LED = 7
-
 yabm = YABM.new
 
-yabm.gpiosetdir(1 << LED)
-
-yabm.gpiosetdat(1 << LED)
-
 yabm.netstartdhcp
+
+gpioinit yabm
 
 # sync date by ntp use https X.509
 ntpaddr = yabm.lookup("ntp.nict.jp")
 yabm.sntp(ntpaddr)
 
-ip = yabm.getaddress
-
-yabm.print ip + "\n"
+#start = yabm.count()
+#while yabm.count() < start + 3 * 1000 do
+#end
+#ntpaddr6 = yabm.lookup6("ntp.nict.jp")
+#yabm.print ntpaddr6 + "\r\n"
+#yabm.sntp(ntpaddr6)
 
 count = 0
+interval = 30
+
+yabm.watchdogstart(WDTIMEOUT)
 
 while 1 do
-  yabm.print "."
   count = count + 1
-  yabm.print " " + count.to_s
-  yabm.gpiosetdat(0)
-  res = SimpleHttp.new("https", "api.thingspeak.com", 443).request("GET", "/update?api_key=" + APIKEY + "&field1="+count.to_s, {'User-Agent' => "test-agent"})
-  yabm.gpiosetdat(1 << LED)
-  if res && res.body
-    yabm.print " " + res.body + "\n"
-  else
-    yabm.print " error\n"
+  ledon yabm
+  yabm.print count.to_s
+  res = SimpleHttp.new("https", "api.thingspeak.com", 443).request("GET", "/update?api_key=" + APIKEY + "&field1=" + count.to_s, {'User-Agent' => "test-agent"})
+  ledoff yabm
+  yabm.print "." + "\r\n"
+  start = yabm.count()
+  while yabm.count() < start + interval * 1000 do
   end
-  delay(yabm, INTERVAL * 1000)
+  yabm.watchdogreset
 end
 
 rescue => e
