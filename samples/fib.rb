@@ -24,9 +24,9 @@ dist = "10.10.10.3"
 yabm.udpinit
 
 count = 1
-while 1 do
+loop do
   res = count.to_s + "."
-  count = count + 1
+  count += 1
   yabm.udpsend(dist, 6666, res, res.length)
   start = yabm.count()
   fib(32)

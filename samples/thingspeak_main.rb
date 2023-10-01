@@ -36,16 +36,14 @@ interval = 30
 
 yabm.watchdogstart(WDTIMEOUT)
 
-while 1 do
-  count = count + 1
+loop do
+  count += 1
   ledon yabm
   yabm.print count.to_s
   res = SimpleHttp.new("https", "api.thingspeak.com", 443).request("GET", "/update?api_key=" + APIKEY + "&field1=" + count.to_s, {'User-Agent' => "test-agent"})
   ledoff yabm
   yabm.print "." + "\r\n"
-  start = yabm.count()
-  while yabm.count() < start + interval * 1000 do
-  end
+  yabm.msleep interval * 1000
   yabm.watchdogreset
 end
 

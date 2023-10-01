@@ -10,11 +10,9 @@ yabm.print "Hello Bear Metal mruby on YABM"
 
 yabm.watchdogstart(30)
 
-while 1 do
+loop do
    yabm.print "."
-   start = yabm.count() 
-   while yabm.count() < start + 500 do
-   end
+   yabm.msleep 500
    yabm.watchdogreset
 end
 
