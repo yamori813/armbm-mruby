@@ -40,7 +40,7 @@ main.bin.gz.uboot: $(OBJS)
 	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on YABM' -d main.bin.gz -a 0x00010000 -e 0x00010000 main.bin.gz.uboot
 
 image :
-	./mruby/build/host/mrbc/bin/mrbc -ohoge.mrb $(RBSCRIPT)
+	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
 	cat main.bin.gz.uboot hoge.mrb > main.uimg 
 
 
