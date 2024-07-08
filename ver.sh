@@ -8,6 +8,8 @@ st=`git status`
 
 git=`git rev-parse --verify --short HEAD 2>/dev/null`
 
+repo=`git remote get-url origin | sed 's/.*\///;s/\..*//'`
+
 git_b=`git rev-parse --abbrev-ref HEAD`
 if [ -n "$git_b" ] ; then
 git="${git}(${git_b})"
@@ -24,7 +26,7 @@ if git diff-index --name-only HEAD | read dummy; then
 git="${git}-dirty"
 fi
 
-verinfo="ksbm-mruby ${git} ${t}\\r\\nmruby ${mgit}\\r\\n"
+verinfo="${repo} ${git} ${t}\\r\\nmruby ${mgit}\\r\\n"
 
 cat << EOF > ver.c
 
