@@ -24,11 +24,13 @@ CROSS_LIBS += -lc -lgcc
 CROSS_CFLAGS = -Ibuild/work/$(NEWLIBDIR)/newlib/libc/include/
 CROSS_CFLAGS += -Ibuild/work/$(LWIPDIR)/src/include -Ibuild/work/$(LWIPDIR)/kendin/include
 CROSS_CFLAGS += -Ibuild/work/$(BARESSLDIR)/inc
-CROSS_CFLAGS += -mcpu=arm922t
 CROSS_CFLAGS += -Imruby/include
 
 OBJS = main.o startup.o xprintf.o mt19937ar.o net.o bear.o syscalls.o net_ether.o i2c.o
-OBJS += ks8695/ks_uart.o ks8695/ks_irq.o ks8695/ks_timer.o ks8695/ks_gpio.o ks8695/ks_ether.o ks8695/ks8695eth.o
+
+TARGET = KS8695
+
+include $(TARGET).mk
 
 RBSCRIPT = samples/hello.rb
 
@@ -38,7 +40,7 @@ main.bin.gz.uboot: $(OBJS)
 	$(CROSS_LD) -T main.ld -Map=main.map $(OBJS) ver.o -o main.elf $(CROSS_LIBS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
 	gzip -f main.bin
-	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on YABM' -d main.bin.gz -a 0x00010000 -e 0x00010000 main.bin.gz.uboot
+	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on YABM' -d main.bin.gz -a $(LOADADDR) -e $(LOADADDR) main.bin.gz.uboot
 
 image :
 	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
