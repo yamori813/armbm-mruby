@@ -1,0 +1,10 @@
+/*
+
+*/
+
+#define	PYMEMSTART	0x00000000
+#define	PYMEMEND	0x007fffff
+
+#define FLASH_ADDR	0x02000000
+#define BOOT_SIZE	0x30000
+
