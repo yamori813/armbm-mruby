@@ -6,6 +6,5 @@ main.elf
 main.map
 main.bin.*
 main.uimg
-cfe/libcfe.a
 hoge.mrb
-tools/asustrx
+main.ld.tmp
