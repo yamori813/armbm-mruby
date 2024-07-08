@@ -37,7 +37,8 @@ RBSCRIPT = samples/hello.rb
 main.bin.gz.uboot: $(OBJS)
 	./ver.sh
 	$(CROSS_CC) $(CROSS_CFLAGS) -c ver.c
-	$(CROSS_LD) -T main.ld -Map=main.map $(OBJS) ver.o -o main.elf $(CROSS_LIBS)
+	sed s/LOADADDR/${LOADADDR}/g main.ld > main.ld.tmp
+	$(CROSS_LD) -T main.ld.tmp -Map=main.map $(OBJS) ver.o -o main.elf $(CROSS_LIBS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
 	gzip -f main.bin
 	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on YABM' -d main.bin.gz -a $(LOADADDR) -e $(LOADADDR) main.bin.gz.uboot

@@ -1,7 +1,7 @@
 ENTRY(_Start);
 SECTIONS
 {
- . = 0x10000; /*initial address*/
+ . = LOADADDR; /*initial address*/
  .startup . : { startup.o(.text) }
  .text : { *(.text) }
  .data : { *(.data) }
