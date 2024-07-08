@@ -27,7 +27,8 @@ CROSS_CFLAGS += -Ibuild/work/$(BARESSLDIR)/inc
 CROSS_CFLAGS += -mcpu=arm922t
 CROSS_CFLAGS += -Imruby/include
 
-OBJS = main.o ks_irq.o ks_timer.o ks_gpio.o startup.o xprintf.o ks_ether.o ks8695eth.o mt19937ar.o net.o bear.o syscalls.o net_ether.o i2c.o
+OBJS = main.o startup.o xprintf.o mt19937ar.o net.o bear.o syscalls.o net_ether.o i2c.o
+OBJS += ks8695/ks_uart.o ks8695/ks_irq.o ks8695/ks_timer.o ks8695/ks_gpio.o ks8695/ks_ether.o ks8695/ks8695eth.o
 
 RBSCRIPT = samples/hello.rb
 
@@ -48,7 +49,7 @@ startup.o: startup.s
 	$(CROSS_AS) -o startup.o startup.s
 
 .c.o:
-	$(CROSS_CC) $(CROSS_CFLAGS) -c $<
+	$(CROSS_CC) $(CROSS_CFLAGS) -o $@ -c $<
 
 clean:
-	rm -rf *.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c
+	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c

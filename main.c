@@ -7,7 +7,7 @@
 
 #include "xprintf.h"
 
-#include "platform.h"
+void pchar(unsigned char);
 
 extern char version[];
 
@@ -50,25 +50,6 @@ unsigned int mmu_small ( unsigned int vadd, unsigned int padd, unsigned int flag
     //hexstrings(rb); hexstring(rc);
     PUT32(rb,rc); //second level descriptor
     return(0);
-}
-
-void pchar(unsigned char c)
-{
-	// Line status register.
-	volatile char* lsr = (volatile char*)(KS8695_IO_BASE + KS8695_UART_LINE_STATUS);
-	// Transmitter holding register.
-	volatile char* thr = (volatile char*)(KS8695_IO_BASE + KS8695_UART_TX_HOLDING);
- 
-	while(((*lsr) & 0x20) == 0) ; // Wait until THR is empty.
- 
-	*thr = c;
-}
- 
-print(char *ptr)
-{
-	while(*ptr) {
-		pchar(*ptr++);
-	}
 }
 
 #define FLASH_ADDR	0x02000000
