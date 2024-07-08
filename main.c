@@ -5,6 +5,12 @@
 #include <mruby/string.h>
 #include <mruby/irep.h>
 
+#if KS8695
+#include "ks8695/ks8695.h"
+// use in start.s
+int MYSTACK=0x700000;
+#endif
+
 #include "xprintf.h"
 
 void pchar(unsigned char);
@@ -52,9 +58,6 @@ unsigned int mmu_small ( unsigned int vadd, unsigned int padd, unsigned int flag
     return(0);
 }
 
-#define FLASH_ADDR	0x02000000
-#define BOOT_SIZE	0x30000
-
 int main(void)
 {
 unsigned char *sizep;
@@ -75,15 +78,16 @@ int i;
 
 	for(ra=0;;ra+=0x00100000)
 	{
-		if (ra < 0x700000)   /* SDRAM. Last section use MAC DMA */
+		if (ra >= PYMEMSTART && ra < PYMEMEND - 0x100000)
 			mmu_section(ra,ra,0x0000 | BUFFERABLE | CACHEABLE);
 		else
 			mmu_section(ra,ra,0x0000);
 		if(ra==0xFFF00000) break;
 	}
-	for(ra=0x700000;;ra+=0x00001000) {
+	/* last 1MByte use DMA buffer */
+	for(ra=PYMEMEND & 0xfff00000;;ra+=0x00001000) {
+		if (ra > PYMEMEND) break;
 		mmu_small(ra,ra,0,0x00000400);
-		if (ra == 0x7ff000) break;
 	}
 
 	start_mmu(MMUTABLEBASE,0x00000001|0x1000|0x0004);

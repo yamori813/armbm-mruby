@@ -41,7 +41,9 @@ stmia r1!,{r2-r9}
 ldmia r0!,{r2-r9}
 stmia r1!,{r2-r9}
 
- mov sp,#0x700000
+# mov sp,#0x700000
+ ldr	r0,=MYSTACK
+ mov	sp,r0
 
  ldr     r0, _bss_start
  ldr     r1, _bss_end
