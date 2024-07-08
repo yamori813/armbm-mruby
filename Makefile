@@ -34,19 +34,16 @@ include $(TARGET).mk
 
 RBSCRIPT = samples/hello.rb
 
-main.bin.gz.uboot: $(OBJS)
+main.bin: $(OBJS)
 	./ver.sh
 	$(CROSS_CC) $(CROSS_CFLAGS) -c ver.c
 	sed s/LOADADDR/${LOADADDR}/g main.ld > main.ld.tmp
 	$(CROSS_LD) -T main.ld.tmp -Map=main.map $(OBJS) ver.o -o main.elf $(CROSS_LIBS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
-	gzip -f main.bin
-	mkimage -A arm -C gzip -O linux -T kernel -n 'mruby on YABM' -d main.bin.gz -a $(LOADADDR) -e $(LOADADDR) main.bin.gz.uboot
 
 image :
 	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
-	cat main.bin.gz.uboot hoge.mrb > main.uimg 
-
+	cat main.bin.uboot hoge.mrb > main.uimg 
 
 startup.o: startup.s
 	$(CROSS_AS) -o startup.o startup.s
@@ -55,4 +52,4 @@ startup.o: startup.s
 	$(CROSS_CC) $(CROSS_CFLAGS) -o $@ -c $<
 
 clean:
-	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c
+	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c main.ld.tmp
