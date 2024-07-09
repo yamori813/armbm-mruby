@@ -4,7 +4,8 @@ build/mruby/build_config.rb.lock
 ver.c
 main.elf
 main.map
-main.bin.*
+main.bin
+main.bin.uboot
 main.uimg
 hoge.mrb
 main.ld.tmp
