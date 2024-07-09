@@ -19,8 +19,6 @@ extern char version[];
 
 extern IRQ_STACK_START;
 
-#define MMUTABLEBASE 0x00004000
-
 #define CACHEABLE 0x08
 #define BUFFERABLE 0x04
 
