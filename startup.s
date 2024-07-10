@@ -130,7 +130,7 @@ start_mmu:
 	mcr p15,0,r2,c3,c0,0 ;@ domain
 
 	mcr p15,0,r0,c2,c0,0 ;@ tlb base
-	mcr p15,0,r0,c2,c0,1 ;@ tlb base
+#	mcr p15,0,r0,c2,c0,1 ;@ tlb base
 
 	mrc p15,0,r2,c1,c0,0
 	orr r2,r2,r1
