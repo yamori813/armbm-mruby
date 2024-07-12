@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "platform.h"
+#include "ks8695.h"
 
 #include "lwip/init.h"
 
@@ -13,8 +14,6 @@
 #include "lwip/ethip6.h"
 #include "lwip/etharp.h"
 #include "netif/ethernet.h"
-
-#define UBOOTENVOFFSET	0x20000
 
 struct netif netif;
 
@@ -116,7 +115,7 @@ char *macptr;
 	netif->output_ip6 = ethip6_output;
 	netif->linkoutput = low_level_output;
 
-	envp = 0x02000000 + UBOOTENVOFFSET;
+	envp = FLASH_ADDR + UBOOTENVOFFSET;
 	if (findenv("ethaddr", envp, macstr, sizeof(macstr))) {
 		macptr = macstr;
 	} else {
