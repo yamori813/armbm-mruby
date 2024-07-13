@@ -6,6 +6,7 @@
 #define	_RT1310_REG_H
 
 #define	RT_INTC_BASE			0x19C40000
+#define	RT_MAC0_BASE			0x19C80000
 #define	RT_TIMER0_BASE			0x1E800000
 #define	RT_UART0_BASE			0x1E840000
 #define	RT_GPIO_BASE			0x1E8A0000
@@ -75,5 +76,12 @@
 
 #define	RT_APB_FREQ			75000000
 #define	RT_BASE_BAUD			6758400
+
+/*
+ * TO access RT1310 device.
+ */
+
+#define	rt1310_read(a)			*((volatile unsigned long *) (a))
+#define	rt1310_write(a,b)		*((volatile unsigned long *) (a)) = (b)
 
 #endif	/* _RT1310_REG_H */

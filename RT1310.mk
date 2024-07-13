@@ -2,9 +2,7 @@
 
 CROSS_CFLAGS += -DRT1310=1 -mcpu=arm922t
 
-OBJS += rt1310/rt1310_uart.o rt1310/rt1310_intc.o rt1310/rt1310_timer.o
-# still dummy
-OBJS += ks8695/ks_gpio.o ks8695/ks_ether.o ks8695/ks8695eth.o
+OBJS += rt1310/rt1310_uart.o rt1310/rt1310_intc.o rt1310/rt1310_timer.o rt1310/rt1310_gpio.o rt1310/rt1310_ether.o
 
 LOADADDR = 0x40010000
 
