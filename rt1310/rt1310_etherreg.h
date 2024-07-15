@@ -17,20 +17,6 @@ struct fv_desc {
 	unsigned long	fv_link;
 };
 
-#if 0
-struct fv_ring_data {
-	bus_dmamap_t		tx_dm[FV_TX_RING_CNT];
-	struct mbuf		*tx_mb[FV_TX_RING_CNT];
-	bus_dmamap_t		rx_dm[FV_RX_RING_CNT];
-	struct mbuf		*rx_mb[FV_RX_RING_CNT];
-};
-
-#define FV_TX_RING_ADDR(sc, i)  \
-    (sc->sc_txdesc_dmamap->dm_segs[0].ds_addr+ sizeof(struct fv_desc) * (i))
-#define FV_RX_RING_ADDR(sc, i)  \
-    (sc->sc_txdesc_dmamap->dm_segs[0].ds_addr + sizeof(struct fv_desc) * (i))
-#endif
-
 #define FV_DMASIZE(len)		((len)  & ((1 << 11)-1))                
 #define FV_PKTSIZE(len)		((len & 0xffff0000) >> 16)
 
