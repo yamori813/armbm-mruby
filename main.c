@@ -7,12 +7,8 @@
 
 #if KS8695
 #include "ks8695/ks8695.h"
-// use in start.s
-int MYSTACK=0x700000;
 #elif RT1310
 #include "rt1310/rt1310.h"
-// use in start.s
-int MYSTACK=0xf00000;
 #endif
 
 #include "xprintf.h"
