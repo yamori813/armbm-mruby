@@ -41,7 +41,10 @@ stmia r1!,{r2-r9}
 ldmia r0!,{r2-r9}
 stmia r1!,{r2-r9}
 
- mov sp,#0x700000
+# mov sp,#0x700000
+ mov sp,pc
+ and sp,sp,#0xf0000000
+ add sp,sp,#0x700000
 
  ldr     r0, _bss_start
  ldr     r1, _bss_end
