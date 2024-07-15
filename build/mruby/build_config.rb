@@ -4,7 +4,6 @@ MRuby::CrossBuild.new('kendin') do |conf|
   conf.cc.command = 'arm-none-eabi-gcc'
   conf.archiver.command = 'arm-none-eabi-ar'
 
-  cc.defines << %w(MRB_METHOD_T_STRUCT)
   cc.defines << %w(MRB_NO_STDIO)
   cc.defines << %w(MRB_NO_FLOAT)
   cc.defines << %w(YABM_KEDEN)
