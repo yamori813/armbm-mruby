@@ -6,19 +6,35 @@
 
 #include "time.h"
 
+unsigned long wdtcount;
 unsigned long starttime;
 static volatile unsigned int jiffies = 0;
 
 void watchdog_start(int sec)
 {
+unsigned long *lptr;
+
+	wdtcount =(RT_APB_FREQ / 256) * sec;
+	lptr = (unsigned long *)(RT_WDT_BASE + WTDOG_OFF_LR);
+	*lptr = wdtcount;
+	lptr = (unsigned long *)(RT_WDT_BASE + WTDOG_OFF_CON);
+	*lptr = WTDOG_ENABLE | WTDOG_RESET_ENABLE | 7;
 }
 
 void watchdog_reset()
 {
+unsigned long *lptr;
+
+	lptr = (unsigned long *)(RT_WDT_BASE + WTDOG_OFF_LR);
+	*lptr = wdtcount;
 }
 
 void watchdog_stop()
 {
+unsigned long *lptr;
+
+	lptr = (unsigned long *)(RT_WDT_BASE + WTDOG_OFF_CON);
+	*lptr = 0;
 }
 
 int timer_init()

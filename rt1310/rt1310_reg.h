@@ -71,6 +71,26 @@
 
 
 /*
+ * WDT
+ */
+
+#define WTDOG_OFF_LR			(0x0)
+#define WTDOG_OFF_CVR			(0x4)
+#define WTDOG_OFF_CON			(0x8)
+
+#define RT_WTDOG_MAX_LR			(0xffffffff) /* 32-bit load register */
+#define MAX_PRESCALE_SHIFT		(8) /* Max. prescale 1/256 */
+#define RT_WTDOG_DISALLOWED_PRESCALE	(1)
+
+/*
+ * uPlatform WATCHDOG CON register definition
+ */
+#define WTDOG_ENABLE			(1<<3)
+#define WTDOG_RESET_ENABLE		(1<<4)
+#define WTDOG_PRESCALE_FACTOR_MSK	0x00000007
+#define WTDOG_PRESCALE_FACTOR(x)	((x) & WTDOG_PRESCALE_FACTOR_MSK)
+
+/*
  * Misc
  */
 
