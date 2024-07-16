@@ -52,4 +52,4 @@ startup.o: startup.s
 	$(CROSS_CC) $(CROSS_CFLAGS) -o $@ -c $<
 
 clean:
-	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c main.ld.tmp
+	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c main.ld.tmp pad.tmp
