@@ -9,7 +9,7 @@ LOADADDR = 0x40010000
 # This target not support gzip compression
 
 main.bin.uboot: main.bin
-#	mkimage -A arm -C none -O linux -T kernel -n 'mruby on YABM' -d main.bin -a $(LOADADDR) -e $(LOADADDR) main.bin.uboot
-	mkimage -A arm -C none -O linux -T kernel -n 'mruby on YABM' -d main.bin -a $(LOADADDR) -e $(LOADADDR) main.bin.tmp	
-	dd if=/dev/zero of=pad.tmp bs=1 count=20
-	cat pad.tmp main.bin.tmp > main.bin.uboot
+	bzip2 -z main.bin
+	mkimage -A arm -C bzip2 -O linux -T kernel -n 'mruby on YABM' -d main.bin.bz2 -a $(LOADADDR) -e $(LOADADDR) main.bin.tmp
+	dd if=/dev/zero of=main.bin.pad bs=1 count=20
+	cat main.bin.pad main.bin.tmp > main.bin.uboot
