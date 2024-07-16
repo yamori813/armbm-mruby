@@ -1,4 +1,4 @@
-#
+# WZR2-G300N
 
 CROSS_CFLAGS += -DRT1310=1 -mcpu=arm922t
 
