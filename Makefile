@@ -43,6 +43,7 @@ main.bin: $(OBJS)
 
 image :
 	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
+	@sha256 hoge.mrb
 	cat main.bin.uboot hoge.mrb > main.uimg 
 
 startup.o: startup.s
