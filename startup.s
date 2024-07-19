@@ -44,7 +44,11 @@ stmia r1!,{r2-r9}
 # mov sp,#0x700000
  mov sp,pc
  and sp,sp,#0xf0000000
+.ifdef rt1310
+ add sp,sp,#0xf00000
+.else
  add sp,sp,#0x700000
+.endif
 
  ldr     r0, _bss_start
  ldr     r1, _bss_end

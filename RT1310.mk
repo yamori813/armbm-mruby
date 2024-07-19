@@ -5,6 +5,7 @@ CROSS_CFLAGS += -DRT1310=1 -mcpu=arm922t
 OBJS += rt1310/rt1310_uart.o rt1310/rt1310_intc.o rt1310/rt1310_timer.o rt1310/rt1310_gpio.o rt1310/rt1310_ether.o
 
 LOADADDR = 0x40010000
+ASDEF = --defsym rt1310=1
 
 # This target not support gzip compression
 

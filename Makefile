@@ -47,7 +47,7 @@ image :
 	cat main.bin.uboot hoge.mrb > main.uimg 
 
 startup.o: startup.s
-	$(CROSS_AS) -o startup.o startup.s
+	$(CROSS_AS) $(ASDEF) -o startup.o startup.s
 
 .c.o:
 	$(CROSS_CC) $(CROSS_CFLAGS) -o $@ -c $<
