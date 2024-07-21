@@ -44,7 +44,7 @@ main.bin: $(OBJS)
 image :
 	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
 	@sha256 hoge.mrb
-	cat main.bin.uboot hoge.mrb > main.uimg 
+	cat $(VMOBJ).uboot hoge.mrb > $(VMOBJ).uimg 
 
 startup.o: startup.s
 	$(CROSS_AS) $(ASDEF) -o startup.o startup.s
@@ -53,4 +53,4 @@ startup.o: startup.s
 	$(CROSS_CC) $(CROSS_CFLAGS) -o $@ -c $<
 
 clean:
-	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg main.uboot hoge.mrb ver.c main.ld.tmp
+	rm -rf *.o */*.o main.map main.elf main.bin* main.uimg hoge.mrb ver.c main.ld.tmp
