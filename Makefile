@@ -44,7 +44,7 @@ main.bin: $(OBJS)
 image :
 	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
 	@sha256 hoge.mrb
-	cat $(VMOBJ).uboot hoge.mrb > $(VMOBJ).uimg 
+	cat $(VMOBJ).uboot hoge.mrb > main.uimg
 
 startup.o: startup.s
 	$(CROSS_AS) $(ASDEF) -o startup.o startup.s
