@@ -4,6 +4,7 @@
 #include <mruby.h>
 #include <mruby/string.h>
 #include <mruby/irep.h>
+#include <mruby/version.h>
 
 #if KS8695
 #include "ks8695/ks8695.h"
@@ -72,7 +73,8 @@ int i;
 
 	IRQ_STACK_START = 0x10000;
 
-	print(version);
+	xprintf(version, MRUBY_RELEASE_MAJOR, MRUBY_RELEASE_MINOR,
+	    MRUBY_RELEASE_TEENY);
 
 	for(ra=0;;ra+=0x00100000)
 	{
