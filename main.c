@@ -4,7 +4,6 @@
 #include <mruby.h>
 #include <mruby/string.h>
 #include <mruby/irep.h>
-#include <mruby/version.h>
 
 #if KS8695
 #include "ks8695/ks8695.h"
