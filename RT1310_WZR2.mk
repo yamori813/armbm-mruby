@@ -11,4 +11,5 @@ VMOBJ = main_wzr2
 # This target not support gzip compression
 
 main.bin.uboot: main.bin
-	mkimage -A arm -C none -O linux -T kernel -n 'mruby on YABM' -d main.bin -a $(LOADADDR) -e $(LOADADDR) $(VMOBJ).uboot
+	./oldlzma/oldlzma e main.bin main.bin.lzma
+	mkimage -A arm -C lzma -O linux -T kernel -n 'mruby on YABM' -d main.bin.lzma -a $(LOADADDR) -e $(LOADADDR) $(VMOBJ).uboot

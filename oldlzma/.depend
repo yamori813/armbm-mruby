@@ -1,0 +1,2 @@
+oldlzma.full: /usr/lib/libc.a
+oldlzma.full: /usr/lib/libc++.a
