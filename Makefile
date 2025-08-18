@@ -26,7 +26,7 @@ CROSS_CFLAGS += -Ibuild/work/$(LWIPDIR)/src/include -Ibuild/work/$(LWIPDIR)/kend
 CROSS_CFLAGS += -Ibuild/work/$(BARESSLDIR)/inc
 CROSS_CFLAGS += -Imruby/include
 
-OBJS = main.o startup.o xprintf.o mt19937ar.o net.o bear.o syscalls.o net_ether.o i2c.o
+OBJS = main.o startup.o xprintf.o mt19937ar.o net.o bear.o httpsvr.o syscalls.o net_ether.o i2c.o
 
 TARGET = KS8695
 
