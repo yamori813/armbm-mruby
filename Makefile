@@ -5,6 +5,7 @@
 NEWLIBDIR=newlib-3.0.0.20180831
 LWIPDIR=lwip-2.1.2
 BARESSLDIR=bearssl-0.6
+MRUBYDIR=mruby
 
 PREFIX = arm-none-eabi
 
@@ -14,7 +15,7 @@ CROSS_LD = $(PREFIX)-ld
 CROSS_OBJCOPY = $(PREFIX)-objcopy
 
 CROSS_LIBS = -Lbuild/work/$(NEWLIBDIR)/$(PREFIX)/newlib
-CROSS_LIBS += -Lmruby/build/kendin/lib
+CROSS_LIBS += -Lbuild/work/$(MRUBYDIR)/build/kendin/lib
 CROSS_LIBS += -L/usr/local/lib/gcc/arm-none-eabi/4.9.2/
 CROSS_LIBS += -Lbuild/work/$(LWIPDIR)/kendin
 CROSS_LIBS += -Lbuild/work/$(BARESSLDIR)/build/
@@ -24,7 +25,7 @@ CROSS_LIBS += -lc -lgcc
 CROSS_CFLAGS = -Ibuild/work/$(NEWLIBDIR)/newlib/libc/include/
 CROSS_CFLAGS += -Ibuild/work/$(LWIPDIR)/src/include -Ibuild/work/$(LWIPDIR)/kendin/include
 CROSS_CFLAGS += -Ibuild/work/$(BARESSLDIR)/inc
-CROSS_CFLAGS += -Imruby/include
+CROSS_CFLAGS += -Ibuild/work/$(MRUBYDIR)/include
 
 OBJS = main.o startup.o xprintf.o mt19937ar.o net.o bear.o httpsvr.o syscalls.o net_ether.o i2c.o
 
@@ -42,7 +43,7 @@ main.bin: $(OBJS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
 
 image :
-	./mruby/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
+	./build/work/$(MRUBYDIR)/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
 	@sha256 hoge.mrb
 	cat $(VMOBJ).uboot hoge.mrb > main.uimg
 
