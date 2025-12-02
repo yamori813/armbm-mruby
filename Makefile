@@ -43,7 +43,7 @@ main.bin: $(OBJS)
 	$(CROSS_OBJCOPY) -O binary main.elf main.bin
 
 image :
-	./build/work/$(MRUBYDIR)/build/host/bin/mrbc -ohoge.mrb $(RBSCRIPT)
+	mrbc -ohoge.mrb $(RBSCRIPT)
 	@sha256 hoge.mrb
 	cat $(VMOBJ).uboot hoge.mrb > main.uimg
 
